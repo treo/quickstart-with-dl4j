@@ -21,10 +21,15 @@
                 <updatePolicy>daily</updatePolicy>  <!-- Optional, update daily -->
             </snapshots>
         </repository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Sonatype Nexus Staging</name>
+            <url>https://oss.sonatype.org/content/repositories/orgnd4j-1190/</url>
+        </repository>
     </repositories>
 
     <properties>
-        <dl4j.version>1.0.0-SNAPSHOT</dl4j.version>
+        <dl4j.version>1.0.0-beta2</dl4j.version>
         <logback.version>1.2.3</logback.version>
         <java.version>1.8</java.version>
         <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
