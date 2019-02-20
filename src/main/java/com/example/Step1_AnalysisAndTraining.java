@@ -11,8 +11,6 @@ import org.datavec.api.transform.ui.HtmlAnalysis;
 import org.datavec.local.transforms.AnalyzeLocal;
 import org.deeplearning4j.api.storage.StatsStorage;
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator;
-import org.deeplearning4j.eval.Evaluation;
-import org.deeplearning4j.eval.EvaluationAveraging;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
 import org.deeplearning4j.nn.conf.NeuralNetConfiguration;
 import org.deeplearning4j.nn.conf.inputs.InputType;
@@ -25,6 +23,8 @@ import org.deeplearning4j.ui.api.UIServer;
 import org.deeplearning4j.ui.stats.StatsListener;
 import org.deeplearning4j.ui.storage.InMemoryStatsStorage;
 import org.deeplearning4j.util.ModelSerializer;
+import org.nd4j.evaluation.EvaluationAveraging;
+import org.nd4j.evaluation.classification.Evaluation;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.learning.config.Adam;
 import org.nd4j.linalg.lossfunctions.impl.LossMCXENT;
@@ -84,8 +84,8 @@ public class Step1_AnalysisAndTraining {
                 .seed(0xC0FFEE)
                 .weightInit(WeightInit.XAVIER)
                 .activation(Activation.TANH)
-                .updater(new Adam.Builder().learningRate(0.15).build())
-                .l2(0.00316)
+                .updater(new Adam.Builder().learningRate(0.001).build())
+                .l2(0.0000316)
                 .list(
                         new DenseLayer.Builder().nOut(25).build(),
                         new DenseLayer.Builder().nOut(25).build(),
@@ -107,7 +107,7 @@ public class Step1_AnalysisAndTraining {
         model.addListeners(new ScoreIterationListener(100));
         model.addListeners(new StatsListener(statsStorage, 250));
 
-        model.fit(trainIterator, 100);
+        model.fit(trainIterator, 59);
 
         TransformProcessRecordReader testRecordReader = new TransformProcessRecordReader(new CSVRecordReader(), transformProcess);
         testRecordReader.initialize( new FileSplit(new File("X:/Churn_Modelling/Test/")));
@@ -122,22 +122,22 @@ public class Step1_AnalysisAndTraining {
         /*
 ========================Evaluation Metrics========================
  # of classes:    2
- Accuracy:        0,8715
- Precision:       0,8233
- Recall:          0,7127
- F1 Score:        0,5724
+ Accuracy:        0,8710
+ Precision:       0,8112
+ Recall:          0,7257
+ F1 Score:        0,5892
 Precision, recall & F1: reported for positive class (class 1 - "1") only
 
 
 =========================Confusion Matrix=========================
     0    1
 -----------
- 1571   54 | 0 = 0
-  203  172 | 1 = 1
+ 1557   68 | 0 = 0
+  190  185 | 1 = 1
 
 Confusion matrix format: Actual (rowClass) predicted as (columnClass) N times
 ==================================================================
-MCC: 0.5244999138768601
+MCC: 0.530128345214995
          */
 
         File modelSave = new File("X:/Churn_Modelling/model.bin");

@@ -9,9 +9,9 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <dl4j.version>1.0.0-beta2</dl4j.version>
+        <dl4j.version>1.0.0-beta3</dl4j.version>
         <logback.version>1.2.3</logback.version>
-        <java.version>1.8</java.version>
+        <java.version>1.11</java.version>
         <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
     </properties>
 
@@ -63,11 +63,24 @@
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-ui_2.10</artifactId>
             <version>${dl4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.jodah</groupId>
+                    <artifactId>typetools</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Required for Java 10/11 compatibility -->
+        <dependency>
+            <groupId>net.jodah</groupId>
+            <artifactId>typetools</artifactId>
+            <version>0.5.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.deeplearning4j</groupId>
-            <artifactId>deeplearning4j-parallel-wrapper_2.10</artifactId>
+            <artifactId>deeplearning4j-parallel-wrapper</artifactId>
             <version>${dl4j.version}</version>
         </dependency>
 
@@ -82,7 +95,7 @@
 
     <build>
         <plugins>
-            <!-- Maven compiler plugin: compile for Java 8 -->
+            <!-- Maven compiler plugin: compile for Java 11 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
