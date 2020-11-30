@@ -9,9 +9,9 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <dl4j.version>1.0.0-beta3</dl4j.version>
+        <dl4j.version>1.0.0-beta7</dl4j.version>
         <logback.version>1.2.3</logback.version>
-        <java.version>1.11</java.version>
+        <java.version>1.15</java.version>
         <maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
     </properties>
 
@@ -34,11 +34,11 @@
         </dependency>
 
         <!-- CUDA: to use GPU for training (CUDA) instead of CPU, uncomment this, and remove nd4j-native-platform -->
-        <!-- Requires CUDA to be installed to use. Change the version (8.0, 9.0, 9.1) to change the CUDA version -->
+        <!-- Requires CUDA to be installed to use. Change the version (10.0, 10.1, 10.2) to change the CUDA version -->
         <!--
         <dependency>
             <groupId>org.nd4j</groupId>
-            <artifactId>nd4j-cuda-9.1-platform</artifactId>
+            <artifactId>nd4j-cuda-10.2-platform</artifactId>
             <version>${dl4j.version}</version>
         </dependency>
         -->
@@ -48,7 +48,7 @@
         <!--
         <dependency>
             <groupId>org.deeplearning4j</groupId>
-            <artifactId>deeplearning4j-cuda-9.1</artifactId>
+            <artifactId>deeplearning4j-cuda-10.2</artifactId>
             <version>${dl4j.version}</version>
         </dependency>
         -->
@@ -57,25 +57,18 @@
             <groupId>org.datavec</groupId>
             <artifactId>datavec-local</artifactId>
             <version>${dl4j.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.deeplearning4j</groupId>
-            <artifactId>deeplearning4j-ui_2.10</artifactId>
-            <version>${dl4j.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>net.jodah</groupId>
-                    <artifactId>typetools</artifactId>
+                    <groupId>org.datavec</groupId>
+                    <artifactId>datavec-arrow</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
 
-        <!-- Required for Java 10/11 compatibility -->
         <dependency>
-            <groupId>net.jodah</groupId>
-            <artifactId>typetools</artifactId>
-            <version>0.5.0</version>
+            <groupId>org.deeplearning4j</groupId>
+            <artifactId>deeplearning4j-ui</artifactId>
+            <version>${dl4j.version}</version>
         </dependency>
 
         <dependency>
